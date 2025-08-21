@@ -5,6 +5,7 @@ import PetDetails from "./PetDetails.tsx";
 import MainPage from "./MainPage.tsx";
 import PetOverview from "./PetOverview.tsx";
 import {useFetchInitialData} from "./fetchInitialData.tsx";
+import PetForm from "./PetForm.tsx";
 
 function App() {
     useFetchInitialData()
@@ -30,7 +31,7 @@ function App() {
                     },
                     { // pet form for filling out information about a pet - create one or edit one
                         path: "/pet/form/create",
-                        element: <p>Create pet</p>
+                        element: <PetForm/>
                     },
                     { // pet form for filling out information about a pet - create one or edit one
                         path: "/pet/form/:petID/edit",
