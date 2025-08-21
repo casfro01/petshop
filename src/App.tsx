@@ -1,10 +1,14 @@
-import './App.css'
+import './css/App.css'
 import {createBrowserRouter, RouterProvider} from "react-router";
 import Home from "./Home.tsx";
 import PetDetails from "./PetDetails.tsx";
 import MainPage from "./MainPage.tsx";
+import PetOverview from "./PetOverview.tsx";
+import {useFetchInitialData} from "./fetchInitialData.tsx";
 
 function App() {
+    useFetchInitialData()
+
   return (
     <>
         <RouterProvider router={createBrowserRouter([
@@ -18,7 +22,7 @@ function App() {
                     },
                     {
                         path: "/pet",
-                        element: <p>pets here!</p>
+                        element: <PetOverview/>
                     },
                     {
                         path: "/pet/:petID",

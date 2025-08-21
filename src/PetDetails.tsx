@@ -1,10 +1,10 @@
 import {useParams} from "react-router";
 
 export interface pet{
-    petID: string;
-    petName: string;
+    id: string;
+    name: string;
     breed: string;
-    imgURL: string;
+    imgurl: string;
     sold: boolean;
 }
 
