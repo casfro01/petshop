@@ -1,33 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import {createBrowserRouter, RouterProvider} from "react-router";
+import Home from "./Home.tsx";
+import PetDetails from "./PetDetails.tsx";
+import MainPage from "./MainPage.tsx";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+        <RouterProvider router={createBrowserRouter([
+            {
+                path: "/",
+                element: <Home/>,
+                children:[
+                    {
+                        path: "/",
+                        element: <MainPage/>
+                    },
+                    {
+                        path: "/pet",
+                        element: <p>pets here!</p>
+                    },
+                    {
+                        path: "/pet/:petID",
+                        element:<PetDetails/>
+                    },
+                    { // pet form for filling out information about a pet - create one or edit one
+                        path: "/pet/form/create",
+                        element: <p>Create pet</p>
+                    },
+                    { // pet form for filling out information about a pet - create one or edit one
+                        path: "/pet/form/:petID/edit",
+                        element: <p>edit pet</p>
+                    },
+                    {
+                        path: "/pet/:petID/buy",
+                        element:<p>a specific pet</p>
+                    }
+                ]
+            }
+        ])}/>
     </>
   )
 }
