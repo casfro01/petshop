@@ -1,24 +1,23 @@
 import type {pet} from "../PetDetails.tsx";
-import {petApi} from "../petApi.ts";
+import {petApi} from "../URL/petApi.ts";
 import toast from "react-hot-toast";
 import {useState} from "react";
 import {useAtom} from "jotai";
 import {petsAtom} from "../states/pets.ts";
 import {useNavigate} from "react-router";
 import {useParams} from "react-router";
-
-export type PetIDParameter ={
-    petID: string;
-}
+import type {petIDParameter} from "../PetDetails.tsx";
 
 export default function PetEditForm(){
     const navigator = useNavigate();
 
     const [pets, setPets] = useAtom(petsAtom);
-    const params = useParams<PetIDParameter>()
+    const params = useParams<petIDParameter>()
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     const currentPet: pet = pets.find(p => p.id === params.petID)
 
-
+    
     const [petName, setName] = useState(currentPet.name);
     const [petBreed, setBreed] = useState(currentPet.breed);
     const [petSold, setSold] = useState(currentPet.sold);
@@ -26,7 +25,7 @@ export default function PetEditForm(){
 
     return <>
         <header><title>Edit Pet</title></header>
-        <div className="hero bg-base-200 min-h-screen">
+        <div className="hero bg-base-300 min-h-screen">
             <div className="hero-content flex-col lg:flex-row-reverse">
                 <div className="text-center lg:text-left">
                     <h1 className="text-5xl font-bold">Edit: {currentPet.name}</h1>
@@ -56,7 +55,7 @@ export default function PetEditForm(){
                                 }
                             }}/>
                             <label className="label">Sold</label>
-                            <input className="checkbox" type="checkbox" checked={petSold} onChange={curr => {
+                            <input className="checkbox" type="checkbox" checked={petSold} onChange={() => {
                                 setSold(!petSold)
                             }} />
                             <label className="label">URL</label>
@@ -109,7 +108,7 @@ export default function PetEditForm(){
     </>
 }
 
-async function updatePet(p: pet): Promise<Pet>{
+async function updatePet(p: pet): Promise<pet>{
     return await fetch(petApi.getUpdateUrl, {
         method: "PUT",
         headers: {"Content-Type": "application/json"},
@@ -120,7 +119,7 @@ async function updatePet(p: pet): Promise<Pet>{
         } else {
             toast.error("Pet update failed.");
         }
-        return response.json() as pet
+        return response.json() as unknown as pet
     })
 }
 

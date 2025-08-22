@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {petApi} from "../petApi.ts";
+import {petApi} from "../URL/petApi.ts";
 import {petsAtom} from "../states/pets.ts";
 import {useAtom} from "jotai";
 import toast from "react-hot-toast";
@@ -22,7 +22,7 @@ export default function PetCreateForm(){
     const navigator = useNavigate();
     return <>
         <header><title>Create Pet</title></header>
-        <div className="hero bg-base-200 min-h-screen">
+        <div className="hero bg-base-300 min-h-screen">
             <div className="hero-content flex-col lg:flex-row-reverse">
                 <div className="text-center lg:text-left">
                     <h1 className="text-5xl font-bold">Add a New Pet</h1>

@@ -7,6 +7,7 @@ import PetOverview from "./PetOverview.tsx";
 import {useFetchInitialData} from "./fetchInitialData.tsx";
 import PetCreateForm from "./Forms/PetCreateForm.tsx";
 import PetEditForm from "./Forms/PetEditForm.tsx";
+import BuyPet from "./BuyPet.tsx";
 
 function App() {
     useFetchInitialData()
@@ -40,7 +41,7 @@ function App() {
                     },
                     {
                         path: "/pet/:petID/buy",
-                        element:<p>a specific pet</p>
+                        element:<BuyPet/>
                     }
                 ]
             }

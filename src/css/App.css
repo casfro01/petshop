@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+/*use: https://daisyui.com/ */
+
 div{
     font-family: Verdana, serif;
 }

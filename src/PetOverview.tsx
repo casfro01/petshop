@@ -23,7 +23,7 @@ export default function PetOverview() {
                         <p>Breed: {pet.breed}</p>
                         <p className={pet.sold ? "text-green-400" : "text-red-400"}>Sold: {pet.sold ? "Yes" : "No"}</p>
                         <div className="card-actions justify-start">
-                            <button className="btn btn-primary" disabled={pet.sold}>Buy Now</button>
+                            <button className="btn btn-primary" disabled={pet.sold} onClick={()=> navigator("/pet/"+pet.id)}>Buy Now</button>
                             <div className="w-38"></div>
                             <button className="btn btn-warning justify-end" onClick={()=> navigator("/pet/form/"+ pet.id+"/edit")}>Edit</button>
                         </div>
