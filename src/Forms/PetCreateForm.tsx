@@ -1,9 +1,9 @@
 import {useState} from "react";
-import {petApi} from "./petApi.ts";
-import {petsAtom} from "./states/pets.ts";
+import {petApi} from "../petApi.ts";
+import {petsAtom} from "../states/pets.ts";
 import {useAtom} from "jotai";
 import toast from "react-hot-toast";
-import type {pet} from "./PetDetails.tsx";
+import type {pet} from "../PetDetails.tsx";
 import {useNavigate} from "react-router";
 
 export interface PetCreateDto{
@@ -14,7 +14,7 @@ export interface PetCreateDto{
 
 
 
-export default function PetForm(){
+export default function PetCreateForm(){
     const [petName, setName] = useState("");
     const [petBreed, setBreed] = useState("");
     const [petUrl, setUrl] = useState("");

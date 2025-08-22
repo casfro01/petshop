@@ -5,7 +5,8 @@ import PetDetails from "./PetDetails.tsx";
 import MainPage from "./MainPage.tsx";
 import PetOverview from "./PetOverview.tsx";
 import {useFetchInitialData} from "./fetchInitialData.tsx";
-import PetForm from "./PetForm.tsx";
+import PetCreateForm from "./Forms/PetCreateForm.tsx";
+import PetEditForm from "./Forms/PetEditForm.tsx";
 
 function App() {
     useFetchInitialData()
@@ -31,11 +32,11 @@ function App() {
                     },
                     { // pet form for filling out information about a pet - create one or edit one
                         path: "/pet/form/create",
-                        element: <PetForm/>
+                        element: <PetCreateForm/>
                     },
                     { // pet form for filling out information about a pet - create one or edit one
                         path: "/pet/form/:petID/edit",
-                        element: <p>edit pet</p>
+                        element: <PetEditForm/>
                     },
                     {
                         path: "/pet/:petID/buy",
