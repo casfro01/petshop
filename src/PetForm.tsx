@@ -1,5 +1,27 @@
+import {useState} from "react";
+import {petApi} from "./petApi.ts";
+import {petsAtom} from "./states/pets.ts";
+import {useAtom} from "jotai";
+import toast from "react-hot-toast";
+import type {pet} from "./PetDetails.tsx";
+import {useNavigate} from "react-router";
+
+export interface PetCreateDto{
+    name: string
+    breed: string
+    imgurl: string
+}
+
+
+
 export default function PetForm(){
+    const [petName, setName] = useState("");
+    const [petBreed, setBreed] = useState("");
+    const [petUrl, setUrl] = useState("");
+    const [pets, setPets] = useAtom(petsAtom);
+    const navigator = useNavigate();
     return <>
+        <header><title>Create Pet</title></header>
         <div className="hero bg-base-200 min-h-screen">
             <div className="hero-content flex-col lg:flex-row-reverse">
                 <div className="text-center lg:text-left">
@@ -12,16 +34,46 @@ export default function PetForm(){
                     <div className="card-body">
                         <fieldset className="fieldset">
                             <label className="label">Name</label>
-                            <input className="input" placeholder="Name" />
+                            <input className="input" placeholder="Name" onChange={curr => setName(curr.target.value)} />
                             <label className="label">Breed</label>
-                            <input className="input" placeholder="Breed" />
+                            <input className="input" placeholder="Breed" onChange={curr => setBreed(curr.target.value)}/>
                             <label className="label">URL</label>
-                            <input className="input" placeholder="URL" />
-                            <button className="btn btn-neutral mt-4">Submit</button>
+                            <input className="input" placeholder="URL" onChange={curr => setUrl(curr.target.value)} />
+                            <button className="btn btn-neutral mt-4" onClick={async () =>{
+                                const pet = create({
+                                    name: petName,
+                                    breed: petBreed,
+                                    imgurl: petUrl,
+                                })
+                                pet.then(p => {
+                                    setPets([...pets, p])
+                                    if (p){
+                                        navigator("/pet")
+                                    }
+                                })
+
+                            }
+                            }>Submit</button>
                         </fieldset>
                     </div>
                 </div>
             </div>
         </div>
     </>
+}
+
+
+async function create(petDto: PetCreateDto): Promise<pet>{
+    return await fetch(petApi.getCreateUrl, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(petDto),
+    }).then((response) => {
+        if (response.ok) {
+            toast.success("Pet created successfully.", {});
+        } else {
+            toast.error("Pet creation failed.");
+        }
+        return response.json() as unknown as pet;
+    })
 }

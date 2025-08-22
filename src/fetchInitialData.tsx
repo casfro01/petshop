@@ -1,12 +1,13 @@
 import {useSetAtom} from "jotai";
 import {petsAtom} from "./states/pets.ts"
 import {useEffect} from "react";
+import {petApi} from "./petApi.ts";
 
 export function useFetchInitialData(){
     const setPets = useSetAtom(petsAtom)
 
     useEffect(() =>{
-        fetch("https://api-divine-grass-2111.fly.dev/GetPets").
+        fetch(petApi.getPetsUrl).
         then(result =>{
             result.json().then(data =>{
                 setPets(data)
